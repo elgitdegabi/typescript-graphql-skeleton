@@ -1,0 +1,18 @@
+services:
+  mysql-db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'local-db'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'root1234'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - mysql-db-volume:/var/lib/mysql
+# Names our volume
+volumes:
+  mysql-db-volume:
