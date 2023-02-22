@@ -6,6 +6,10 @@ import { HealthCheckResolver } from "../graphql/health.check.resolver";
 import { ProductResolver } from "../graphql/product.resolver";
 import { buildSchema } from "type-graphql/dist/utils";
 
+/**
+ * 
+ * @returns 
+ */
 export async function startServer() {
     const expressServer = express();
     expressServer.use(express.json());

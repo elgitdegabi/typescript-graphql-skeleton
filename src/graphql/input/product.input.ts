@@ -1,5 +1,8 @@
 import {InputType, Field, Int} from "type-graphql"
 
+/**
+ * 
+ */
 @InputType()
 export class CreateProductInput {
     @Field(() => String)
@@ -12,6 +15,9 @@ export class CreateProductInput {
     quantity!: number
 }
 
+/**
+ * 
+ */
 @InputType()
 export class UpdateProductInput {
     @Field(() => String, {nullable: true})

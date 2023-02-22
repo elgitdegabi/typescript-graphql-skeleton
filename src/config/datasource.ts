@@ -2,6 +2,9 @@ import { DataSource } from "typeorm";
 import { Product } from "../entity/product";
 import * as dbConstants from "./constants";
 
+/**
+ * 
+ */
 export const datasource = new DataSource({
     type: "mysql",
     host: getValueFromEnvironment(process.env.TYPEORM_HOST, dbConstants.dbDefaultHost),
@@ -14,10 +17,19 @@ export const datasource = new DataSource({
     entities: [Product]
 });
 
+/**
+ * 
+ */
 export async function dsConnect() {
     await datasource.initialize();
 }
 
+/**
+ * 
+ * @param value 
+ * @param defaultValue 
+ * @returns 
+ */
 function getValueFromEnvironment(value: string | undefined, defaultValue: string): string {
     if (value === undefined) {
         return defaultValue;

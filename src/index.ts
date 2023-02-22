@@ -2,7 +2,6 @@ import "reflect-metadata";
 import { startServer } from "./config/server";
 import { serverPort } from "./config/constants";
 import { dsConnect } from "./config/datasource";
-import productRoutes from "./config/routes";
 
 /**
  * 

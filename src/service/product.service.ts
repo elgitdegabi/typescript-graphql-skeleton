@@ -1,32 +1,65 @@
 import { Product } from "../entity/product";
-import { datasource } from "../config/datasource";
+import { ProductRepository } from "../repository/product.repository";
 
-export async function getProductList(): Promise<Product[]> {
-    return await datasource.getRepository(Product).find();
-}
+/**
+ * 
+ */
+export class ProductService {
 
-export async function getProductById(id: number): Promise<Product[]> {
-    return await datasource.getRepository(Product).findBy({id: id});
-}
+    /**
+     * 
+     * @param productRepository 
+     */
+    constructor (private productRepository: ProductRepository) {}
 
-export async function addNewProduct(name: string, description: string, quantity: number): Promise<Product> {
-    return await datasource.getRepository(Product).save({
-        name: name,
-        description: description,
-        quantity: quantity
-    });
-}
+    /**
+     * 
+     * @returns 
+     */
+    public async getProductList(): Promise<Product[]> {
+        return this.productRepository.findAll();
+    }
 
-export async function updateProductById(id: number, name?: string, description?: string, quantity?: number): Promise<Boolean> {
-    const result = await datasource.getRepository(Product).update(id, {
-        name: name,
-        description: description,
-        quantity: quantity
-    });
-    return result.affected == 1;
-}
+    /**
+     * 
+     * @param id 
+     * @returns 
+     */
+    public async getProductById(id: number): Promise<Product | null> {
+        return this.productRepository.findById(id);
+    }
 
-export async function deleteProductById(id: number): Promise<Boolean> {
-    const result = await datasource.getRepository(Product).delete({id: id});
-    return result.affected == 1;
+    /**
+     * 
+     * @param name 
+     * @param description 
+     * @param quantity 
+     * @returns 
+     */
+    public async createProduct(name: string, description: string, quantity: number): Promise<Product> {
+        return this.productRepository.add(name, description, quantity);
+
+    }
+
+    /**
+     * 
+     * @param id 
+     * @param name 
+     * @param description 
+     * @param quantity 
+     * @returns 
+     */
+    public async updateProduct(id: number, name: string, description: string, quantity: number): Promise<Boolean> {
+        return this.productRepository.update(id, name, description, quantity);
+
+    }
+
+    /**
+     * 
+     * @param id 
+     * @returns 
+     */
+    public async deleteProduct(id: number): Promise<Boolean> {
+        return this.productRepository.delete(id);
+    }
 }
