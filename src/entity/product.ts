@@ -25,10 +25,10 @@ export class Product extends BaseEntity {
     quantity!: number
     
     @Field(() => String)
-    @CreateDateColumn({type: "timestamp", update: false})
+    @CreateDateColumn({update: false})
     createTS!: string
     
     @Field(() => String)
-    @UpdateDateColumn({type: "timestamp", update: true})
+    @UpdateDateColumn({update: true})
     updateTS!: string
 }

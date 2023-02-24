@@ -105,3 +105,6 @@ dist
 
 # TernJS port file
 .tern-port
+
+# integration test non required files
+memory

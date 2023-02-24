@@ -17,7 +17,7 @@ export class ProductService {
      * @returns 
      */
     public async getProductList(): Promise<Product[]> {
-        return this.productRepository.findAll();
+        return await this.productRepository.findAll();
     }
 
     /**
