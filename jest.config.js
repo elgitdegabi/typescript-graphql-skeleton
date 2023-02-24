@@ -2,5 +2,5 @@
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
-  collectCoverageFrom: ['./src/**/*.ts', '!src/*index.ts']
+  collectCoverageFrom: ['./src/**/*.ts', '!src/*index.ts', '!src/config/**/*.ts']
 };

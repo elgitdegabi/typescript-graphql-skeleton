@@ -8,7 +8,7 @@
     "build": "npx tsc",
     "test": "jest ./test/unit",
     "test-coverage": "jest --coverage ./test/unit",
-    "integration-test": "jest --passWithNoTests ./test/integration"
+    "test-integration": "jest --passWithNoTests ./test/integration"
   },
   "keywords": [],
   "author": "",

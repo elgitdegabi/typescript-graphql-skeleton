@@ -13,7 +13,7 @@ export class ProductController {
      * @returns 
      */
     public async getProductList(): Promise<Product[]> {
-        return await this.productService.getProductList();
+        return this.productService.getProductList();
     }
 
     /**

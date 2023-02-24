@@ -17,7 +17,7 @@ export class ProductService {
      * @returns 
      */
     public async getProductList(): Promise<Product[]> {
-        return await this.productRepository.findAll();
+        return this.productRepository.findAll(); 
     }
 
     /**
@@ -59,7 +59,7 @@ export class ProductService {
      * @param id 
      * @returns 
      */
-    public async deleteProduct(id: number): Promise<Boolean> {
+    public deleteProduct(id: number): Promise<Boolean> {
         return this.productRepository.delete(id);
     }
 }
