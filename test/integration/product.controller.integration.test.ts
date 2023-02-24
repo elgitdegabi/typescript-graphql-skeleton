@@ -5,7 +5,7 @@ import { ProductRepository } from "../../src/repository/product.repository";
 import { ProductService } from "../../src/service/product.service";
 
 /**
- * 
+ * Integration test for ProductController flow
  */
 describe ("product controller integration test", () => {
     let datasource: DataSource;
@@ -16,7 +16,7 @@ describe ("product controller integration test", () => {
             type: "sqlite",
             database: "memory",
             dropSchema: true,
-            logging: true,
+            logging: false,
             synchronize: true,
             entities: [Product]
         });
@@ -28,54 +28,84 @@ describe ("product controller integration test", () => {
         productController = new ProductController(productService);   
     });
 
-    beforeEach(async () => {
-        datasource.getRepository(Product).clear;
-    });
-
-    /**
-     * Scenario:
-     * Expectation:
-     */
-    it("should get product list", () => {
-        productController.getProductList().then((result) => {
-            expect(0).toEqual(result.length);    
-        });
-    });
-
-    /**
-     * Scenario:
-     * Expectation:
-     */
-    it("should get product by id", () => {
-        expect(true).toEqual(true); // dummy expectation as template definition
-    });
-
-    /**
-     * Scenario:
-     * Expectation:
-     */
-    it("should add new product", () => {
-        expect(true).toEqual(true); // dummy expectation as template definition
-    });
-
-    /**
-     * Scenario:
-     * Expectation:
-     */
-    it("should update a product", () => {
-        expect(true).toEqual(true); // dummy expectation as template definition
-    });
-
-    /**
-     * Scenario:
-     * Expectation:
-     */
-    it("should delete a product", () => {
-        expect(true).toEqual(true); // dummy expectation as template definition
-    });
-
     afterAll(async () => {
         await datasource.destroy();
     });
-    
+
+    beforeEach(async () => {
+        await datasource.getRepository(Product).clear();
+    });
+
+    /**
+     * Scenario:
+     * Should retrieve all product list from product table
+     * Expectation:
+     * No row are expected since product data were no inserted yet
+     */
+    it("should get product list", async () => {
+        const result = await  productController.getProductList();
+        expect(0).toEqual(result.length);    
+    });
+
+    /**
+     * Scenario:
+     * Should retrieve a product when a the product was inserted previously
+     * Expectation:
+     * A product should be retrieved
+     */
+    it("should get product by id", async () => {
+        const newProduct = await productController.createProduct("someName", "someDescription", 10);
+        const result = await productController.getProductById(newProduct.id);
+        
+        expect(newProduct.name).toEqual(result?.name);    
+        expect(newProduct.description).toEqual(result?.description);    
+        expect(newProduct.quantity).toEqual(result?.quantity);    
+    });
+
+    /**
+     * Scenario:
+     * Should create some products
+     * Expectation:
+     * Inserted products should be retrieved
+     */
+    it("should add new product", async () => {
+        await productController.createProduct("someName1", "someDescription1", 10);
+        await productController.createProduct("someName2", "someDescription2", 20);
+
+        const result = await productController.getProductList();
+
+        expect(2).toEqual(result.length);    
+    });
+
+    /**
+     * Scenario:
+     * Should update a product
+     * Expectation:
+     * Updated product should be retrieved
+     */
+    it("should update a product", async () => {
+        const newProduct = await productController.createProduct("someName", "someDescription", 10);
+        await productController.updateProduct(newProduct.id, newProduct.name, "otherDescription", newProduct.quantity);
+
+        const result = await productController.getProductById(newProduct.id);
+        
+        expect(newProduct.name).toEqual(result?.name);    
+        expect(newProduct.description).not.toEqual(result?.description);    
+        expect(newProduct.quantity).toEqual(result?.quantity);    
+
+    });
+
+    /**
+     * Scenario:
+     * Should delete a product
+     * Expectation:
+     * Deleted product should not be retrieved
+     */
+    it("should delete a product", async () => {
+        const newProduct = await productController.createProduct("someName", "someDescription", 10);
+        expect(1).toEqual((await productController.getProductList()).length);
+
+        await productController.deleteProduct(newProduct.id);
+        expect(0).toEqual((await productController.getProductList()).length);
+    });
 });
