@@ -2,8 +2,8 @@ import express from "express";
 import productRoutes from "./routes";
 
 import { ApolloServer } from "apollo-server-express";
-import { HealthCheckResolver } from "../graphql/health.check.resolver";
-import { ProductResolver } from "../graphql/product.resolver";
+import { HealthCheckResolver } from "../graphql/resolver/health.check.resolver";
+import { ProductResolver } from "../graphql/resolver/product.resolver";
 import { buildSchema } from "type-graphql/dist/utils";
 
 /**
