@@ -9,7 +9,7 @@
     "test": "jest ./test/unit",
     "test-coverage": "jest --coverage ./test/unit",
     "test-integration": "jest --passWithNoTests ./test/integration",
-    "test-debug": "jest ./test/unit/repository/product.repository.test.ts"
+    "test-debug": "jest ./test/unit/graphql/resolver/product.resolver.test.ts"
   },
   "keywords": [],
   "author": "",

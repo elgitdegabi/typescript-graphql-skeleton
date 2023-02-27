@@ -1,4 +1,4 @@
-import { Query, Mutation, Arg, Resolver } from "type-graphql";
+import { Arg, Mutation, Query, Resolver } from "type-graphql";
 import { Product } from "../../entity/product";
 import { CreateProductInput, UpdateProductInput } from "../input/product.input";
 
@@ -42,5 +42,4 @@ export class ProductResolver {
     product(@Arg("id") id: number) {
         return Product.findOneBy({id});
     }
-
 }
